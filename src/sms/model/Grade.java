@@ -29,4 +29,15 @@ public class Grade
     public String getComments() {
         return comments;
     }
+
+    public String toString() {
+        return String.format(
+                "%s %s - %s: %d | %s",
+                this.student.getFirstName(),
+                this.student.getLastName(),
+                this.course.getCourseName(),
+                this.value,
+                this.comments
+        );
+    }
 }
