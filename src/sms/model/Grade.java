@@ -1,3 +1,5 @@
+package sms.model;
+
 public class Grade
 {
     private Student student;

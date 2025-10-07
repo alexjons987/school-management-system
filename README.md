@@ -26,7 +26,7 @@ You will plan and develop a **School Management System** together that can at le
 5. [ ] **5)** Save and load data (e.g. from text file or `JSON`)
 ### OOP requirements
 The project should show that you can use:
-* **Inheritance** (e.g. `Person` → `Student` and `Teacher`)
+* **Inheritance** (e.g. `sms.model.Person` → `sms.model.Student` and `sms.model.Teacher`)
 * **Encapsulation** (private variables with getters/setters)
 * **Polymorphism** (e.g. different types of users or grades)
 * **Interface or abstract class** where appropriate
@@ -41,11 +41,11 @@ If you complete the basic requirements, you can add, for example:
 
 ## Classes (suggestions)
 You can choose the exact structure yourself, but an example is:
-* `Person` (superclass)
-* `Student`
-* `Teacher`
-* `Course`
-* `Grade`
+* `sms.model.Person` (superclass)
+* `sms.model.Student`
+* `sms.model.Teacher`
+* `sms.model.Course`
+* `sms.model.Grade`
 * `SchoolSystem` (the main class that manages the whole thing)
 
 ---
