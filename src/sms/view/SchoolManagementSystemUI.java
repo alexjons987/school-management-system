@@ -8,14 +8,31 @@ public class SchoolManagementSystemUI {
         System.out.println("- Welcome to School Management System -");
     }
 
-    public static void startMenu() {
-        // 1. Manage students
-        // 2. Manage teachers
-        // 3. Manage courses
-        readIntMenuChoice(new Scanner(System.in), 1, 3);
+    public static boolean startMenu() {
+        System.out.println("1. Manage students");
+        System.out.println("2. Manage teachers");
+        System.out.println("3. Manage courses");
+        System.out.println("0. Save and exit");
+
+        int userChoice = readIntMenuChoice(new Scanner(System.in), 0, 3);
+
+        switch (userChoice) {
+            case 0:
+                return false;
+            case 1:
+                manageStudentsMenu();
+                break;
+            case 2:
+                manageTeachersMenu();
+                break;
+            case 3:
+                manageCoursesMenu();
+                break;
+        }
+        return true;
     }
 
-    public static void manageStudentsMenu() {
+    public static void manageStudentsMenu() { // TODO: Implement
         /**
          *     1. Add student
          *     2. Remove student
@@ -23,20 +40,18 @@ public class SchoolManagementSystemUI {
          *     4. List students
          *     5. List grades of student -> select student
          */
-        readIntMenuChoice(new Scanner(System.in), 1, 5);
     }
 
-    public static void manageTeachersMenu() {
+    public static void manageTeachersMenu() { // TODO: Implement
         /**
          *     1. Add Teacher
          *     2. Remove Teacher
          *     3. List Teachers
          *     4. List courses of teacher -> select teacher
          */
-        readIntMenuChoice(new Scanner(System.in), 1, 4);
     }
 
-    public static void manageCoursesMenu() {
+    public static void manageCoursesMenu() { // TODO: Implement
         /**
          *     1. Add course
          *     2. Remove course
@@ -45,7 +60,6 @@ public class SchoolManagementSystemUI {
          *     5. Assign course to teacher -> warn if you are replacing current teacher
          *     6. See course details -> select course -> list course name, subject, course manager, students
          */
-        readIntMenuChoice(new Scanner(System.in), 1, 6);
     }
 
     /**
