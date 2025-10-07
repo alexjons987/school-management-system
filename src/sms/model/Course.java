@@ -47,7 +47,7 @@ public class Course {
     public boolean addStudentToCourse(Student student) {
         if(!students.contains(student)) {
             students.add(student);
-            // student.addCourse(this);
+            student.addCourse(this);
             return true;
         } else {
             return false;
@@ -57,7 +57,7 @@ public class Course {
     public boolean removeStudentFromCourse(Student student) {
         if(students.contains(student)) {
             students.remove(student);
-            // student.removeCourse(this);
+            // student.removeCourse(this); // TODO: Implement removeCourse
             return true;
         } else {
             return false;

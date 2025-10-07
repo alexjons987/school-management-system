@@ -1,48 +1,104 @@
 package sms.view;
 
+import sms.model.Course;
+import sms.model.Student;
+import sms.model.Teacher;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class SchoolManagementSystemUI {
 
     public static void printTitle() {
-        System.out.println("- Welcome to School Management System -");
+        System.out.println("- School Management System -");
     }
 
-    public static boolean startMenu() {
+    public static int startMenu(Scanner scanner) {
         System.out.println("1. Manage students");
         System.out.println("2. Manage teachers");
         System.out.println("3. Manage courses");
         System.out.println("0. Save and exit");
 
-        int userChoice = readIntMenuChoice(new Scanner(System.in), 0, 3);
-
-        switch (userChoice) {
-            case 0:
-                return false;
-            case 1:
-                manageStudentsMenu();
-                break;
-            case 2:
-                manageTeachersMenu();
-                break;
-            case 3:
-                manageCoursesMenu();
-                break;
-        }
-        return true;
+        return readIntMenuChoice(scanner, 0, 3);
     }
 
-    public static void manageStudentsMenu() { // TODO: Implement
+    public static void manageStudentsMenu(Scanner scanner, List<Student> students) { // TODO: Implement
         /**
          *     1. Add student
          *     2. Remove student
          *     3. Grade student
          *     4. List students
          *     5. List grades of student -> select student
+         *     0. Go back
          */
+        System.out.println("- Manage students -");
+        System.out.println("1. Add student");
+        System.out.println("2. Remove student");
+        System.out.println("3. Grade student");
+        System.out.println("4. List students");
+        System.out.println("5. List grades of student");
+        System.out.println("0. Go back");
+
+        int menuChoice = readIntMenuChoice(scanner, 0, 5);
+
+        switch (menuChoice) {
+            case 0:
+                return;
+            case 1:
+                // TODO: Implement Add student
+                break;
+            case 2:
+                // TODO: Implement Remove student
+                break;
+            case 3:
+                gradeStudent(scanner, students);
+                break;
+            case 4:
+                // TODO: Implement List students
+                break;
+            case 5:
+                // TODO: Implement List grades of student
+                break;
+        }
     }
 
-    public static void manageTeachersMenu() { // TODO: Implement
+    private static void gradeStudent(Scanner scanner, List<Student> students) {
+        System.out.println("- Grade student -");
+        System.out.println("Select student to grade (0 = cancel):");
+
+        for (int i = 0; i < students.size(); i++) {
+            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
+        }
+
+        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
+
+        if (studentChoice == 0) {
+            System.out.println("Grading cancelled..");
+            return;
+        }
+
+        Student selectedStudent = students.get(studentChoice - 1);
+
+        List<Course> selectedStudentCourses = selectedStudent.getCourses();
+
+        for (int i = 0; i < selectedStudentCourses.size(); i++) {
+            System.out.printf(
+                    "%d. %s %s (CM: %s)%n",
+                    i + 1,
+                    selectedStudentCourses.get(i).getCourseName(),
+                    selectedStudentCourses.get(i).getSubject(),
+                    selectedStudentCourses.get(i).getCourseManager().getFirstName()
+            );
+        }
+
+        int courseChoice = readIntMenuChoice(scanner, 0, selectedStudentCourses.size());
+
+        // TODO: Add grading to student
+
+        // TODO: Add comment to grading from teacher (optional)
+    }
+
+    public static void manageTeachersMenu(Scanner scanner) { // TODO: Implement, add relevant params
         /**
          *     1. Add Teacher
          *     2. Remove Teacher
@@ -51,7 +107,7 @@ public class SchoolManagementSystemUI {
          */
     }
 
-    public static void manageCoursesMenu() { // TODO: Implement
+    public static void manageCoursesMenu(Scanner scanner) { // TODO: Implement, add relevant params
         /**
          *     1. Add course
          *     2. Remove course

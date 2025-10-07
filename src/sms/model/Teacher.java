@@ -8,6 +8,14 @@ public class Teacher extends Person {
 
     public Teacher(String firstName, String lastName, int birthYear, String email, String phoneNumber) {
         super(firstName, lastName, birthYear, email, phoneNumber);
-        courses = new ArrayList<>();
+        this.courses = new ArrayList<>();
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public List<Course> getCourses() {
+        return courses;
     }
 }
