@@ -14,7 +14,6 @@ public class SchoolManagementSystem {
     List<Student> students = new ArrayList<>();
     List<Teacher> teachers = new ArrayList<>();
     List<Course> courses = new ArrayList<>();
-    boolean hasInitialized = false;
 
     public SchoolManagementSystem() {}
 
@@ -43,6 +42,7 @@ public class SchoolManagementSystem {
         while (flag) {
             flag = SchoolManagementSystemUI.startMenu();
         }
+        System.out.println("Goodbye!");
         // TODO: Save data to JSON database
     }
 }
