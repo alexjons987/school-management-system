@@ -1,6 +1,7 @@
 package sms.view;
 
 import sms.model.Course;
+import sms.model.Grade;
 import sms.model.Student;
 import sms.model.Teacher;
 
@@ -64,12 +65,12 @@ public class SchoolManagementSystemUI {
 
     private static void gradeStudent(Scanner scanner, List<Student> students) {
         System.out.println("- Grade student -");
-        System.out.println("Select student to grade (0 = cancel):");
 
+        // Select student
         for (int i = 0; i < students.size(); i++) {
             System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
         }
-
+        System.out.println("Select student to grade (0 = cancel)");
         int studentChoice = readIntMenuChoice(scanner, 0, students.size());
 
         if (studentChoice == 0) {
@@ -79,8 +80,8 @@ public class SchoolManagementSystemUI {
 
         Student selectedStudent = students.get(studentChoice - 1);
 
+        // Select course
         List<Course> selectedStudentCourses = selectedStudent.getCourses();
-
         for (int i = 0; i < selectedStudentCourses.size(); i++) {
             System.out.printf(
                     "%d. %s %s (CM: %s)%n",
@@ -90,12 +91,37 @@ public class SchoolManagementSystemUI {
                     selectedStudentCourses.get(i).getCourseManager().getFirstName()
             );
         }
-
+        System.out.println("Select course to grade (0 = cancel)");
         int courseChoice = readIntMenuChoice(scanner, 0, selectedStudentCourses.size());
 
-        // TODO: Add grading to student
+        if (courseChoice == 0) {
+            System.out.println("Grading cancelled..");
+            return;
+        }
 
-        // TODO: Add comment to grading from teacher (optional)
+        Course selectedCourse = selectedStudentCourses.get(courseChoice - 1);
+        Teacher selectedCourseCM = selectedCourse.getCourseManager();
+
+        // Set grade for chosen course
+        System.out.println("- Set grade -");
+        System.out.printf("* Student: %s %s%n", selectedStudent.getFirstName(), selectedStudent.getLastName());
+        System.out.printf("* Course: %s %s%n", selectedCourse.getCourseName(), selectedCourse.getSubject());
+        System.out.printf("* Course Manager: %s %s%n", selectedCourseCM.getFirstName(), selectedCourseCM.getLastName());
+        System.out.print("Set grade (0-100)");
+        int courseGrade = readIntMenuChoice(scanner, 0, 100);
+
+        // Add optional teacher comment
+        System.out.print("(OPTIONAL) Teacher comment: ");
+        String teacherComment = scanner.nextLine();
+
+        // Add grade to student
+        Grade grade = new Grade(selectedStudent, selectedCourse, courseGrade, teacherComment);
+        selectedStudent.addGrade(grade);
+
+        System.out.println("\n\n");
+        for (Grade g : selectedStudent.getGrades()) { // TODO: Remove this test printout
+            System.out.println(g.toString());
+        }
     }
 
     public static void manageTeachersMenu(Scanner scanner) { // TODO: Implement, add relevant params
