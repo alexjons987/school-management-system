@@ -21,7 +21,7 @@ You will plan and develop a **School Management System** together that can at le
 ### Basic requirements
 1. [ ] **1)** Manage students, teachers and courses
 2. [ ] **2)** Link students to courses
-3. [ ] **3)** Add and display grades
+3. [x] **3)** Add and display grades
 4. [ ] **4)** Display lists (e.g. students in a course with their grades)
 5. [ ] **5)** Save and load data (e.g. from text file or `JSON`)
 ### OOP requirements
