@@ -60,9 +60,9 @@ public class SchoolManagementSystem {
             teachers.get(2).addCourse(courses.get(2));
 
             // Add students to courses
-            for (Student student : students) {
-                for (Course course : courses) {
-                    student.addCourse(course);
+            for (Course course : courses) {
+                for (Student student : students) {
+                    course.addStudentToCourse(student);
                 }
             }
 
