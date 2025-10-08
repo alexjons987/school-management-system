@@ -12,7 +12,13 @@ public class Teacher extends Person {
     }
 
     public void addCourse(Course course) {
-        this.courses.add(course);
+        if (!courses.contains(course)) {
+            courses.add(course);
+        }
+    }
+
+    public void removeCourse(Course course) {
+        courses.remove(course);
     }
 
     public List<Course> getCourses() {

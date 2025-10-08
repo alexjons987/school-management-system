@@ -88,7 +88,7 @@ public class SchoolManagementSystem {
                     SchoolManagementSystemUI.manageTeachersMenu(scanner);
                     break;
                 case 3:
-                    SchoolManagementSystemUI.manageCoursesMenu(scanner);
+                    SchoolManagementSystemUI.manageCoursesMenu(scanner, students, teachers, courses);
                     break;
             }
         } while (menuChoice != 0);

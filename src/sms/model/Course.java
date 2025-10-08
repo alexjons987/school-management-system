@@ -37,7 +37,12 @@ public class Course {
     }
 
     public void setCourseManager(Teacher courseManager) {
+        if (this.courseManager != null) {
+            this.courseManager.removeCourse(this);
+        }
+
         this.courseManager = courseManager;
+        this.courseManager.addCourse(this);
     }
 
     public List<Student> getStudents() {
@@ -57,7 +62,7 @@ public class Course {
     public boolean removeStudentFromCourse(Student student) {
         if(students.contains(student)) {
             students.remove(student);
-            // student.removeCourse(this); // TODO: Implement removeCourse
+            student.removeCourse(this);
             return true;
         } else {
             return false;
