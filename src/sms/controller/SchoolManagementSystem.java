@@ -1,6 +1,7 @@
 package sms.controller;
 
 import sms.model.Course;
+import sms.model.Person;
 import sms.model.Student;
 import sms.model.Teacher;
 import sms.view.SchoolManagementSystemUI;
@@ -33,19 +34,15 @@ public class SchoolManagementSystem {
 
             // TODO: Remove test data (ONLY USED FOR TESTING PRE-DATABASE)
             // Create some students
-            students = List.of(
-                    new Student("Alexander", "A", 1234, "alex@email.com", "0721234567"),
-                    new Student("Hans-Erik", "HE", 2345, "hanserik@email.com", "0722345678"),
-                    new Student("Lena", "L", 3456, "lena@email.com", "0723456789"),
-                    new Student("Ioana", "I", 4567, "ioana@email.com", "0724567890")
-            );
+            students.add(new Student("Alexander", "A", 1234, "alex@email.com", "0721234567"));
+            students.add(new Student("Hans-Erik", "HE", 2345, "hanserik@email.com", "0722345678"));
+            students.add(new Student("Lena", "L", 3456, "lena@email.com", "0723456789"));
+            students.add(new Student("Ioana", "I", 2000, "ioana@email.com", "0724567890"));
 
             // Create some teachers
-            teachers = List.of(
-                    new Teacher("Alice", "A.", 1234, "alex@email.com", "0721234567"),
-                    new Teacher("Bob", "B.", 2345, "hanserik@email.com", "0722345678"),
-                    new Teacher("Charlie", "C.", 3456, "lena@email.com", "0723456789")
-            );
+            teachers.add(new Teacher("Alice", "A.", 1234, "alex@email.com", "0721234567"));
+            teachers.add(new Teacher("Bob", "B.", 2345, "hanserik@email.com", "0722345678"));
+            teachers.add(new Teacher("Charlie", "C.", 3456, "lena@email.com", "0723456789"));
 
             // Create some courses
             courses = List.of(
@@ -85,7 +82,7 @@ public class SchoolManagementSystem {
                     SchoolManagementSystemUI.manageStudentsMenu(scanner, students);
                     break;
                 case 2:
-                    SchoolManagementSystemUI.manageTeachersMenu(scanner);
+                    SchoolManagementSystemUI.manageTeachersMenu(scanner, teachers);
                     break;
                 case 3:
                     SchoolManagementSystemUI.manageCoursesMenu(scanner, students, teachers, courses);
