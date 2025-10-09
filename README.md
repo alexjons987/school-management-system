@@ -1,4 +1,12 @@
 # Group Assignment: School Management System
+## How to start the School Management System
+### IntelliJ
+1. Clone the repository.
+2. Goto **File** -> **Open** -> Select **school-management-system**
+3. If your IDE doesn't automatically recognize the `\lib` directory, goto **File** -> **Project structure...** ->
+   **Libraries** -> Hit the `+` and add the `\lib` directory (that contains all necessary Jackson `.jar`-files)
+4. Run from `Main.java`
+
 ## Background
 You are a development team that has been assigned to create a **School Management System** in **Java**.
 The system will help a school keep track of **students, teachers, courses and grades**.
@@ -23,7 +31,7 @@ You will plan and develop a **School Management System** together that can at le
 2. [ ] **2)** Link students to courses
 3. [x] **3)** Add and display grades
 4. [ ] **4)** Display lists (e.g. students in a course with their grades)
-5. [ ] **5)** Save and load data (e.g. from text file or `JSON`)
+5. [x] **5)** Save and load data (e.g. from text file or `JSON`)
 ### OOP requirements
 The project should show that you can use:
 * **Inheritance** (e.g. `Person` → `Student` and `Teacher`)
