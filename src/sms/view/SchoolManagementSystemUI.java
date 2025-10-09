@@ -5,6 +5,7 @@ import sms.model.Grade;
 import sms.model.Student;
 import sms.model.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -167,7 +168,7 @@ public class SchoolManagementSystemUI {
                 addStudentToCourse(scanner, students, courses);
                 break;
             case 4:
-                removeStudentFromCourse(scanner, courses);
+                removeStudentFromCourse(scanner, students, courses);
                 break;
             case 5:
                 // TODO: Implement List all courses and their course manager
@@ -185,6 +186,22 @@ public class SchoolManagementSystemUI {
     {
         System.out.println("- Add student to course -");
 
+        // Select student
+        for (int i = 0; i < students.size(); i++)
+        {
+            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
+        }
+        System.out.println("Select student (0 = cancel)");
+        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
+
+        if (studentChoice == 0)
+        {
+            System.out.println("Add student to course cancelled..");
+            return;
+        }
+
+        Student selectedStudent = students.get(studentChoice - 1);
+
         // Select course
         for (int i = 0; i < courses.size(); i++)
         {
@@ -206,57 +223,22 @@ public class SchoolManagementSystemUI {
         }
 
         Course selectedCourse = courses.get(courseChoice - 1);
-
-        // Select student
-        for (int i = 0; i < students.size(); i++)
-        {
-            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
-        }
-        System.out.println("Select student to add to the course (0 = cancel)");
-        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
-
-        if (studentChoice == 0)
-        {
-            System.out.println("Add student to course cancelled..");
-            return;
-        }
-
-        Student selectedStudent = students.get(studentChoice - 1);
         selectedCourse.addStudentToCourse(selectedStudent);
+        System.out.printf("%s %s has been added to the %s course.%n",
+                selectedStudent.getFirstName(),
+                selectedStudent.getLastName(),
+                selectedCourse.getCourseName());
     }
 
-    private static void removeStudentFromCourse(Scanner scanner, List<Course> courses) {
+    private static void removeStudentFromCourse(Scanner scanner, List<Student> students, List<Course> courses) {
         System.out.println("- Remove student from course -");
-
-        // Select course
-        for (int i = 0; i < courses.size(); i++)
-        {
-            System.out.printf(
-                    "%d. %s %s (CM: %s)%n",
-                    i + 1,
-                    courses.get(i).getCourseName(),
-                    courses.get(i).getSubject(),
-                    courses.get(i).getCourseManager().getFirstName()
-            );
-        }
-        System.out.println("Select course (0 = cancel)");
-        int courseChoice = readIntMenuChoice(scanner, 0, courses.size());
-
-        if (courseChoice == 0)
-        {
-            System.out.println("Remove student from course cancelled..");
-            return;
-        }
-
-        Course selectedCourse = courses.get(courseChoice - 1);
-        List<Student> students = selectedCourse.getStudents();
 
         // Select student
         for (int i = 0; i < students.size(); i++)
         {
             System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
         }
-        System.out.println("Select student to be removed from course (0 = cancel)");
+        System.out.println("Select student (0 = cancel)");
         int studentChoice = readIntMenuChoice(scanner, 0, students.size());
 
         if (studentChoice == 0)
@@ -266,7 +248,51 @@ public class SchoolManagementSystemUI {
         }
 
         Student selectedStudent = students.get(studentChoice - 1);
+        ArrayList<Course> studentCourses = new ArrayList<>();
+
+        for (String courseID : selectedStudent.getCourses()) {
+            Course course = courses.stream()
+                    .filter(c -> c.getCourseIdentifier().equals(courseID))
+                    .findFirst()
+                    .orElse(null);
+
+            if (course != null) {
+                studentCourses.add(course);
+            }
+        }
+
+        if (studentCourses.isEmpty())
+        {
+            System.out.println("The student does not attend any courses..");
+            return;
+        }
+
+        // Select course
+        for (int i = 0; i < studentCourses.size(); i++)
+        {
+            System.out.printf(
+                    "%d. %s %s (CM: %s)%n",
+                    i + 1,
+                    studentCourses.get(i).getCourseName(),
+                    studentCourses.get(i).getSubject(),
+                    studentCourses.get(i).getCourseManager().getFirstName()
+            );
+        }
+        System.out.println("Select course (0 = cancel)");
+        int courseChoice = readIntMenuChoice(scanner, 0, studentCourses.size());
+
+        if (courseChoice == 0)
+        {
+            System.out.println("Remove student from course cancelled..");
+            return;
+        }
+
+        Course selectedCourse = studentCourses.get(courseChoice - 1);
         selectedCourse.removeStudentFromCourse(selectedStudent);
+        System.out.printf("%s %s has been removed from the %s course.%n",
+                selectedStudent.getFirstName(),
+                selectedStudent.getLastName(),
+                selectedCourse.getCourseName());
     }
 
     public static void setCourseManager(Scanner scanner, List<Teacher> teachers, List<Course> courses) {
@@ -310,6 +336,10 @@ public class SchoolManagementSystemUI {
 
         Teacher selectedTeacher = teachers.get(teacherChoice - 1);
         selectedCourse.setCourseManager(selectedTeacher);
+        System.out.printf("%s %s is the new course manager of %s.%n",
+                selectedTeacher.getFirstName(),
+                selectedTeacher.getLastName(),
+                selectedCourse.getCourseName());
     }
 
     /**
