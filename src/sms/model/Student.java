@@ -18,7 +18,7 @@ public class Student extends Person{
         this.attendingCoursesIDs.add(courseIdentifier);
     }
 
-    public List<String> getCourses() {
+    public List<String> getCoursesIDs() {
         return attendingCoursesIDs;
     }
 

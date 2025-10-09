@@ -1,8 +1,5 @@
 package sms.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course {
     private final String courseIdentifier;
     private String courseName;
@@ -43,7 +40,7 @@ public class Course {
     }
 
     public boolean addStudentToCourse(Student student) {
-        if (student.getCourses().contains(courseIdentifier)) {
+        if (student.getCoursesIDs().contains(courseIdentifier)) {
            return false;
         }
         student.addCourse(courseIdentifier);
@@ -51,7 +48,7 @@ public class Course {
     }
 
     public boolean removeStudentFromCourse(Student student) {
-        if(!student.getCourses().contains(courseIdentifier)) {
+        if(!student.getCoursesIDs().contains(courseIdentifier)) {
             return false;
         }
         // student.removeCourse(courseIdentifier); // TODO: Implement removeCourse

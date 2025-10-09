@@ -82,7 +82,7 @@ public class SchoolManagementSystem {
 
             switch (menuChoice) {
                 case 1:
-                    SchoolManagementSystemUI.manageStudentsMenu(scanner, students);
+                    SchoolManagementSystemUI.manageStudentsMenu(scanner, students, courses);
                     break;
                 case 2:
                     SchoolManagementSystemUI.manageTeachersMenu(scanner);
