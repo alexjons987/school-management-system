@@ -18,6 +18,10 @@ public class Student extends Person{
         this.attendingCoursesIDs.add(courseIdentifier);
     }
 
+    public void removeCourse(String courseIdentifier) {
+        this.attendingCoursesIDs.remove(courseIdentifier);
+    }
+
     public List<String> getCourses() {
         return attendingCoursesIDs;
     }
