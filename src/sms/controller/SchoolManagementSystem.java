@@ -69,7 +69,7 @@ public class SchoolManagementSystem {
 
     private void readFromDatabase() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                //.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
@@ -107,26 +107,20 @@ public class SchoolManagementSystem {
 
     private void addTestData() {
         // Create some students
-        students = List.of(
-                new Student("Alexander", "A", 1234, "alex@email.com", "0721234567"),
-                new Student("Hans-Erik", "HE", 2345, "hanserik@email.com", "0722345678"),
-                new Student("Lena", "L", 3456, "lena@email.com", "0723456789"),
-                new Student("Ioana", "I", 4567, "ioana@email.com", "0724567890")
-        );
+        students.add(new Student("Alexander", "A", 1234, "alex@email.com", "0721234567"));
+        students.add(new Student("Hans-Erik", "HE", 2345, "hanserik@email.com", "0722345678"));
+        students.add(new Student("Lena", "L", 3456, "lena@email.com", "0723456789"));
+        students.add(new Student("Ioana", "I", 4567, "ioana@email.com", "0724567890"));
 
         // Create some teachers
-        teachers = List.of(
-                new Teacher("Alice", "A.", 1234, "alicea@school.com", "0721234567"),
-                new Teacher("Bob", "B.", 2345, "bobb@school.com", "0722345678"),
-                new Teacher("Charlie", "C.", 3456, "charliec@school.com", "0723456789")
-        );
+        teachers.add(new Teacher("Alice", "A.", 1234, "alicea@school.com", "0721234567"));
+        teachers.add(new Teacher("Bob", "B.", 2345, "bobb@school.com", "0722345678"));
+        teachers.add(new Teacher("Charlie", "C.", 3456, "charliec@school.com", "0723456789"));
 
         // Create some courses
-        courses = List.of(
-                new Course("IX1303","Algebra and Geometry", "Math", teachers.get(0)),
-                new Course("IS1200","Computer Hardware Engineering", "Engineering", teachers.get(1)),
-                new Course("IV1351","Data Storage Paradigms", "Engineering", teachers.get(2))
-        );
+        courses.add(new Course("IX1303", "Algebra and Geometry", "Math", teachers.get(0)));
+        courses.add(new Course("IS1200", "Computer Hardware Engineering", "Engineering", teachers.get(1)));
+        courses.add(new Course("IV1351", "Data Storage Paradigms", "Engineering", teachers.get(2)));
 
         // Add a course manager to each course
         teachers.get(0).addCourse(courses.get(0).getCourseIdentifier());

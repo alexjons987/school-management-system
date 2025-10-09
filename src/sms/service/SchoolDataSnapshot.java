@@ -4,8 +4,6 @@ import sms.model.Course;
 import sms.model.Student;
 import sms.model.Teacher;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SchoolDataSnapshot {
