@@ -223,11 +223,20 @@ public class SchoolManagementSystemUI {
         }
 
         Course selectedCourse = courses.get(courseChoice - 1);
-        selectedCourse.addStudentToCourse(selectedStudent);
-        System.out.printf("%s %s has been added to the %s course.%n",
-                selectedStudent.getFirstName(),
-                selectedStudent.getLastName(),
-                selectedCourse.getCourseName());
+        boolean addedStudentToCourse = selectedCourse.addStudentToCourse(selectedStudent);
+
+        if (addedStudentToCourse) {
+            System.out.printf("%s %s has been added to the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+        else {
+            System.out.printf("%s %s is already added to the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
     }
 
     private static void removeStudentFromCourse(Scanner scanner, List<Student> students, List<Course> courses) {
@@ -251,14 +260,9 @@ public class SchoolManagementSystemUI {
         ArrayList<Course> studentCourses = new ArrayList<>();
 
         for (String courseID : selectedStudent.getCourses()) {
-            Course course = courses.stream()
+            courses.stream()
                     .filter(c -> c.getCourseIdentifier().equals(courseID))
-                    .findFirst()
-                    .orElse(null);
-
-            if (course != null) {
-                studentCourses.add(course);
-            }
+                    .findFirst().ifPresent(studentCourses::add);
         }
 
         if (studentCourses.isEmpty())
@@ -288,11 +292,20 @@ public class SchoolManagementSystemUI {
         }
 
         Course selectedCourse = studentCourses.get(courseChoice - 1);
-        selectedCourse.removeStudentFromCourse(selectedStudent);
-        System.out.printf("%s %s has been removed from the %s course.%n",
-                selectedStudent.getFirstName(),
-                selectedStudent.getLastName(),
-                selectedCourse.getCourseName());
+        boolean removedFromCourse = selectedCourse.removeStudentFromCourse(selectedStudent);
+
+        if (removedFromCourse) {
+            System.out.printf("%s %s has been removed from the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+        else {
+            System.out.printf("%s %s does not attend the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
     }
 
     public static void setCourseManager(Scanner scanner, List<Teacher> teachers, List<Course> courses) {
