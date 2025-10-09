@@ -3,13 +3,13 @@ package sms.model;
 public class Grade
 {
     private Student student;
-    private Course course;
+    private String courseIdentifier;
     private int value;
     private String comments;
 
-    public Grade(Student student, Course course, int value, String comments) {
+    public Grade(Student student, String courseIdentifier, int value, String comments) {
         this.student = student;
-        this.course = course;
+        this.courseIdentifier = courseIdentifier;
         this.value = value;
         this.comments = comments;
     }
@@ -18,8 +18,8 @@ public class Grade
         return student;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getCourseIdentifier() {
+        return courseIdentifier;
     }
 
     public int getValue() {
@@ -35,7 +35,7 @@ public class Grade
                 "%s %s - %s: %d | %s",
                 this.student.getFirstName(),
                 this.student.getLastName(),
-                this.course.getCourseName(),
+                this.courseIdentifier,
                 this.value,
                 this.comments
         );
