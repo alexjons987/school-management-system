@@ -42,7 +42,7 @@ public class SchoolManagementSystemUI {
                 removePerson(scanner, students, "Student");
                 break;
             case 3:
-                gradeStudent(scanner, students, courses);// TODO: Refactor gradeStudent method (courseIdentifier is added, courses list is removed )
+                gradeStudent(scanner, students, courses);
                 break;
             case 4:
                 System.out.println("- List students -");
