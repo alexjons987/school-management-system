@@ -81,7 +81,7 @@ public class SchoolManagementSystemUI {
         Student selectedStudent = students.get(studentChoice - 1);
 
         // Select course
-        List<String> selectedStudentCourseIDs = selectedStudent.getCoursesIDs();
+        List<String> selectedStudentCourseIDs = selectedStudent.getAttendingCoursesIDs();
         for (int i = 0; i < selectedStudentCourseIDs.size(); i++) {
             Course studentCourse = courses.get(i);
             System.out.printf(
@@ -123,7 +123,7 @@ public class SchoolManagementSystemUI {
         String teacherComment = scanner.nextLine();
 
         // Add grade to student
-        Grade grade = new Grade(selectedStudent, selectedCourse.getCourseIdentifier(), courseGrade, teacherComment);
+        Grade grade = new Grade(selectedCourse.getCourseIdentifier(), courseGrade, teacherComment);
         selectedStudent.addGrade(grade);
 
         // TODO: Remove this block - only used for testing

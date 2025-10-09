@@ -1,0 +1,135 @@
+{
+  "students": [
+    {
+      "firstName": "Alexander",
+      "lastName": "A",
+      "birthYear": 1234,
+      "email": "alex@email.com",
+      "phoneNumber": "0721234567",
+      "attendingCoursesIDs": [
+        "IX1303",
+        "IS1200",
+        "IV1351"
+      ],
+      "grades": []
+    },
+    {
+      "firstName": "Hans-Erik",
+      "lastName": "HE",
+      "birthYear": 2345,
+      "email": "hanserik@email.com",
+      "phoneNumber": "0722345678",
+      "attendingCoursesIDs": [
+        "IX1303",
+        "IS1200",
+        "IV1351"
+      ],
+      "grades": []
+    },
+    {
+      "firstName": "Lena",
+      "lastName": "L",
+      "birthYear": 3456,
+      "email": "lena@email.com",
+      "phoneNumber": "0723456789",
+      "attendingCoursesIDs": [
+        "IX1303",
+        "IS1200",
+        "IV1351"
+      ],
+      "grades": []
+    },
+    {
+      "firstName": "Ioana",
+      "lastName": "I",
+      "birthYear": 4567,
+      "email": "ioana@email.com",
+      "phoneNumber": "0724567890",
+      "attendingCoursesIDs": [
+        "IX1303",
+        "IS1200",
+        "IV1351"
+      ],
+      "grades": []
+    }
+  ],
+  "teachers": [
+    {
+      "firstName": "Alice",
+      "lastName": "A.",
+      "birthYear": 1234,
+      "email": "alicea@school.com",
+      "phoneNumber": "0721234567",
+      "managedCoursesIDs": [
+        "IX1303"
+      ]
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "B.",
+      "birthYear": 2345,
+      "email": "bobb@school.com",
+      "phoneNumber": "0722345678",
+      "managedCoursesIDs": [
+        "IS1200"
+      ]
+    },
+    {
+      "firstName": "Charlie",
+      "lastName": "C.",
+      "birthYear": 3456,
+      "email": "charliec@school.com",
+      "phoneNumber": "0723456789",
+      "managedCoursesIDs": [
+        "IV1351"
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "courseIdentifier": "IX1303",
+      "courseName": "Algebra and Geometry",
+      "subject": "Math",
+      "courseManager": {
+        "firstName": "Alice",
+        "lastName": "A.",
+        "birthYear": 1234,
+        "email": "alicea@school.com",
+        "phoneNumber": "0721234567",
+        "managedCoursesIDs": [
+          "IX1303"
+        ]
+      }
+    },
+    {
+      "courseIdentifier": "IS1200",
+      "courseName": "Computer Hardware Engineering",
+      "subject": "Engineering",
+      "courseManager": {
+        "firstName": "Bob",
+        "lastName": "B.",
+        "birthYear": 2345,
+        "email": "bobb@school.com",
+        "phoneNumber": "0722345678",
+        "managedCoursesIDs": [
+          "IS1200"
+        ]
+      }
+    },
+    {
+      "courseIdentifier": "IV1351",
+      "courseName": "Data Storage Paradigms",
+      "subject": "Engineering",
+      "courseManager": {
+        "firstName": "Charlie",
+        "lastName": "C.",
+        "birthYear": 3456,
+        "email": "charliec@school.com",
+        "phoneNumber": "0723456789",
+        "managedCoursesIDs": [
+          "IV1351"
+        ]
+      }
+    }
+  ]
+}
