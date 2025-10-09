@@ -144,7 +144,7 @@ public class SchoolManagementSystemUI {
          *     6. Set course manager for course
          *     7. See course details -> select course -> list course name, subject, course manager, students
          */
-        System.out.println("1. Add course");
+        System.out.println("1. Create course");
         System.out.println("2. Remove course");
         System.out.println("3. Add student to course");
         System.out.println("4. Remove student from course");
