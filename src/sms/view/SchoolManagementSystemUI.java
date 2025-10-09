@@ -166,7 +166,7 @@ public class SchoolManagementSystemUI {
                 // ToDo: Implement Add student to course
                 break;
             case 4:
-                // TODO: Implement List courses
+                listCourses(courses);
                 break;
             case 5:
                 // TODO: Implement Assign teacher to course
@@ -178,7 +178,6 @@ public class SchoolManagementSystemUI {
     }
 
     public static void addCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
-        // TODO: Implement courseIdentifier
         System.out.println("- Add course -");
         System.out.println("Add name of the course ");
         System.out.print("> ");
@@ -254,6 +253,19 @@ public class SchoolManagementSystemUI {
         courses.remove(indexToRemove);
         System.out.println();
         System.out.println(message);
+        System.out.println();
+    }
+
+    public static void listCourses(List<Course> courses) {
+        courses.forEach(course -> {
+            System.out.printf(
+                    "%s | %s | %s | %s %s%n",
+                    course.getCourseIdentifier(),
+                    course.getCourseName(),
+                    course.getSubject(),
+                    course.getCourseManager().getFirstName(),
+                    course.getCourseManager().getLastName());
+        });
         System.out.println();
     }
 
