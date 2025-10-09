@@ -38,7 +38,12 @@ public class Course {
     }
 
     public void setCourseManager(Teacher courseManager) {
+        if (this.courseManager != null) {
+            this.courseManager.removeCourse(this.courseIdentifier);
+        }
+
         this.courseManager = courseManager;
+        this.courseManager.addCourse(this.courseIdentifier);
     }
 
     public boolean addStudentToCourse(Student student) {
@@ -53,7 +58,7 @@ public class Course {
         if(!student.getAttendingCoursesIDs().contains(courseIdentifier)) {
             return false;
         }
-        // student.removeCourse(courseIdentifier); // TODO: Implement removeCourse
+        student.removeCourse(courseIdentifier);
         return true;
     }
 }

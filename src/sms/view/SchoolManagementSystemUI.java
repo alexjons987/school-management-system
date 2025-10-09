@@ -1,17 +1,15 @@
 package sms.view;
 
-import sms.model.Course;
-import sms.model.Grade;
-import sms.model.Student;
-import sms.model.Teacher;
+import sms.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class SchoolManagementSystemUI {
 
     public static void printTitle() {
-        System.out.println("- School Management System -");
+        System.out.printf("%n- School Management System -%n");
     }
 
     public static int startMenu(Scanner scanner) {
@@ -24,14 +22,6 @@ public class SchoolManagementSystemUI {
     }
 
     public static void manageStudentsMenu(Scanner scanner, List<Student> students, List<Course> courses) { // TODO: Implement
-        /**
-         *     1. Add student
-         *     2. Remove student
-         *     3. Grade student
-         *     4. List students
-         *     5. List grades of student -> select student
-         *     0. Go back
-         */
         System.out.println("- Manage students -");
         System.out.println("1. Add student");
         System.out.println("2. Remove student");
@@ -46,20 +36,86 @@ public class SchoolManagementSystemUI {
             case 0:
                 return;
             case 1:
-                // TODO: Implement Add student
+                addPerson(scanner, students, "Student");
                 break;
             case 2:
-                // TODO: Implement Remove student
+                removePerson(scanner, students, "Student");
                 break;
             case 3:
                 gradeStudent(scanner, students, courses);// TODO: Refactor gradeStudent method (courseIdentifier is added, courses list is removed )
                 break;
             case 4:
-                // TODO: Implement List students
+                System.out.println("- List students -");
+                listPersons(students);
                 break;
             case 5:
                 // TODO: Implement List grades of student
                 break;
+        }
+    }
+    private static <T extends Person> void addPerson(Scanner scanner, List<T> persons, String type) {
+        System.out.printf("- Add %s -%n",type);
+        String firstName = askData(scanner, "First name");
+        String lastName = askData(scanner, "Last name");
+        System.out.println("Birth year: ");
+        int birthYear = readIntMenuChoice(scanner,1875,2020);
+        String email = askData(scanner, "Email address");
+        String phone = askData(scanner, "Phone number");
+
+        boolean alreadyRegistered = persons.stream().anyMatch(person ->
+                person.getFirstName().equals(firstName)
+                && person.getLastName().equals(lastName)
+                && person.getBirthYear() == (birthYear)
+                && person.getEmail().equals(email)
+                && person.getPhoneNumber().equals(phone));
+        if(alreadyRegistered) {
+            System.out.printf("%s already registered%n", type);
+        } else {
+            Person newPerson;
+            if (type.equals("Student")) {
+                persons.add((T) new Student(firstName, lastName, birthYear, email, phone));
+            } else {
+                persons.add((T) new Teacher(firstName, lastName, birthYear, email, phone));
+            }
+            System.out.printf("%s %s %s is added into the school management system!%n", type, firstName, lastName);
+        }
+    }
+    private static <T extends Person> void removePerson(Scanner scanner, List<T> persons, String type) {
+   // private static void removePerson(Scanner scanner, List<Person> persons, String type) {
+        System.out.printf("- Remove %s -%n", type);
+
+        if (persons.isEmpty()) {
+            System.out.println("No persons available to remove");
+            return;
+        }
+        // Select person
+        for (int i = 0; i < persons.size(); i++) {
+            System.out.printf("%d. %s %s%n", i + 1, persons.get(i).getFirstName(), persons.get(i).getLastName());
+        }
+        System.out.println("Select person to remove (0 = cancel)");
+        int studentChoice = readIntMenuChoice(scanner, 0, persons.size());
+
+        if (studentChoice == 0) {
+            System.out.println("Operation cancelled..");
+            return;
+        }
+        Person personRemoved = persons.get(studentChoice -1);
+        persons.remove(studentChoice -1);
+        System.out.printf("%s %s %s has been removed from the school management system!",type, personRemoved.getFirstName(), personRemoved.getLastName());
+    }
+
+    private static <T extends Person> void listPersons(List<T> persons) {
+   // private static void listpersons(Scanner scanner, List<Person> persons) {
+        // Select student
+        for (int i = 0; i < persons.size(); i++) {
+            Person person = persons.get(i); // get once
+            System.out.printf("%d. Name: %s %s birth year: %d email: %s phone: %s %n",
+                    i + 1,
+                    person.getFirstName(),
+                    person.getLastName(),
+                    person.getBirthYear(),
+                    person.getEmail(),
+                    person.getPhoneNumber());
         }
     }
 
@@ -133,24 +189,245 @@ public class SchoolManagementSystemUI {
         }
     }
 
-    public static void manageTeachersMenu(Scanner scanner) { // TODO: Implement, add relevant params
-        /**
-         *     1. Add Teacher
-         *     2. Remove Teacher
-         *     3. List Teachers
-         *     4. List courses of teacher -> select teacher
-         */
+    public static void manageTeachersMenu(Scanner scanner, List<Teacher> teachers) { // TODO: Implement, add relevant params
+        System.out.println("- Manage Teachers -");
+        System.out.println("1. Add teacher");
+        System.out.println("2. Remove teacher");
+        System.out.println("3. List teachers");
+        System.out.println("4. List courses of teacher");
+        System.out.println("0. Go back");
+
+        int menuChoice = readIntMenuChoice(scanner, 0, 5);
+
+        switch (menuChoice) {
+            case 0:
+                return;
+            case 1:
+                addPerson(scanner, teachers, "Teacher");
+                break;
+            case 2:
+                removePerson(scanner, teachers, "Teacher");
+                break;
+            case 3:
+                System.out.println("- List teachers -");
+                listPersons(teachers);
+                break;
+            case 4:
+                // TODO: Implement List of courses for teacher
+                break;
+        }
     }
 
-    public static void manageCoursesMenu(Scanner scanner) { // TODO: Implement, add relevant params
-        /**
-         *     1. Add course
-         *     2. Remove course
-         *     3. Add student to course
-         *     4. List all courses and their course manager
-         *     5. Assign course to teacher -> warn if you are replacing current teacher
-         *     6. See course details -> select course -> list course name, subject, course manager, students
-         */
+    public static void manageCoursesMenu(Scanner scanner, List<Student> students, List<Teacher> teachers, List <Course> courses) {
+        System.out.println("1. Create course");
+        System.out.println("2. Remove course");
+        System.out.println("3. Add student to course");
+        System.out.println("4. Remove student from course");
+        System.out.println("5. List all courses and their course manager");
+        System.out.println("6. Set course manager for course");
+        System.out.println("7. See course details");
+        System.out.println("0. Go back");
+
+        int userChoice = readIntMenuChoice(new Scanner(System.in), 0, 7);
+
+        switch (userChoice) {
+            case 0:
+                return;
+            case 1:
+                // TODO: Implement Add course
+                break;
+            case 2:
+                // TODO: Implement Remove course
+                break;
+            case 3:
+                addStudentToCourse(scanner, students, courses);
+                break;
+            case 4:
+                removeStudentFromCourse(scanner, students, courses);
+                break;
+            case 5:
+                // TODO: Implement List all courses and their course manager
+                break;
+            case 6:
+                setCourseManager(scanner, teachers, courses);
+                break;
+            case 7:
+                // TODO: See course details
+                break;
+        }
+    }
+
+    private static void addStudentToCourse(Scanner scanner, List<Student> students, List<Course> courses)
+    {
+        System.out.println("- Add student to course -");
+
+        // Select student
+        for (int i = 0; i < students.size(); i++)
+        {
+            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
+        }
+        System.out.println("Select student (0 = cancel)");
+        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
+
+        if (studentChoice == 0)
+        {
+            System.out.println("Add student to course cancelled..");
+            return;
+        }
+
+        Student selectedStudent = students.get(studentChoice - 1);
+
+        // Select course
+        for (int i = 0; i < courses.size(); i++)
+        {
+            System.out.printf(
+                    "%d. %s %s (CM: %s)%n",
+                    i + 1,
+                    courses.get(i).getCourseName(),
+                    courses.get(i).getSubject(),
+                    courses.get(i).getCourseManager().getFirstName()
+            );
+        }
+        System.out.println("Select course (0 = cancel)");
+        int courseChoice = readIntMenuChoice(scanner, 0, courses.size());
+
+        if (courseChoice == 0)
+        {
+            System.out.println("Add student to course cancelled..");
+            return;
+        }
+
+        Course selectedCourse = courses.get(courseChoice - 1);
+        boolean addedStudentToCourse = selectedCourse.addStudentToCourse(selectedStudent);
+
+        if (addedStudentToCourse) {
+            System.out.printf("%s %s has been added to the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+        else {
+            System.out.printf("%s %s is already added to the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+    }
+
+    private static void removeStudentFromCourse(Scanner scanner, List<Student> students, List<Course> courses) {
+        System.out.println("- Remove student from course -");
+
+        // Select student
+        for (int i = 0; i < students.size(); i++)
+        {
+            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
+        }
+        System.out.println("Select student (0 = cancel)");
+        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
+
+        if (studentChoice == 0)
+        {
+            System.out.println("Remove student from course cancelled..");
+            return;
+        }
+
+        Student selectedStudent = students.get(studentChoice - 1);
+        ArrayList<Course> studentCourses = new ArrayList<>();
+
+        for (String courseID : selectedStudent.getAttendingCoursesIDs()) {
+            courses.stream()
+                    .filter(c -> c.getCourseIdentifier().equals(courseID))
+                    .findFirst().ifPresent(studentCourses::add);
+        }
+
+        if (studentCourses.isEmpty())
+        {
+            System.out.println("The student does not attend any courses..");
+            return;
+        }
+
+        // Select course
+        for (int i = 0; i < studentCourses.size(); i++)
+        {
+            System.out.printf(
+                    "%d. %s %s (CM: %s)%n",
+                    i + 1,
+                    studentCourses.get(i).getCourseName(),
+                    studentCourses.get(i).getSubject(),
+                    studentCourses.get(i).getCourseManager().getFirstName()
+            );
+        }
+        System.out.println("Select course (0 = cancel)");
+        int courseChoice = readIntMenuChoice(scanner, 0, studentCourses.size());
+
+        if (courseChoice == 0)
+        {
+            System.out.println("Remove student from course cancelled..");
+            return;
+        }
+
+        Course selectedCourse = studentCourses.get(courseChoice - 1);
+        boolean removedFromCourse = selectedCourse.removeStudentFromCourse(selectedStudent);
+
+        if (removedFromCourse) {
+            System.out.printf("%s %s has been removed from the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+        else {
+            System.out.printf("%s %s does not attend the %s course.%n",
+                    selectedStudent.getFirstName(),
+                    selectedStudent.getLastName(),
+                    selectedCourse.getCourseName());
+        }
+    }
+
+    public static void setCourseManager(Scanner scanner, List<Teacher> teachers, List<Course> courses) {
+        System.out.println("- Set course manager for course -");
+
+        // Select course
+        for (int i = 0; i < courses.size(); i++)
+        {
+            System.out.printf(
+                    "%d. %s %s (CM: %s)%n",
+                    i + 1,
+                    courses.get(i).getCourseName(),
+                    courses.get(i).getSubject(),
+                    courses.get(i).getCourseManager().getFirstName()
+            );
+        }
+        System.out.println("Select course (0 = cancel)");
+        int courseChoice = readIntMenuChoice(scanner, 0, courses.size());
+
+        if (courseChoice == 0)
+        {
+            System.out.println("Set course manager cancelled..");
+            return;
+        }
+
+        Course selectedCourse = courses.get(courseChoice - 1);
+
+        // Select teacher
+        for (int i = 0; i < teachers.size(); i++)
+        {
+            System.out.printf("%d. %s %s%n", i + 1, teachers.get(i).getFirstName(), teachers.get(i).getLastName());
+        }
+        System.out.println("Select teacher to be course manager (0 = cancel)");
+        int teacherChoice = readIntMenuChoice(scanner, 0, teachers.size());
+
+        if (teacherChoice == 0)
+        {
+            System.out.println("Set course manager cancelled..");
+            return;
+        }
+
+        Teacher selectedTeacher = teachers.get(teacherChoice - 1);
+        selectedCourse.setCourseManager(selectedTeacher);
+        System.out.printf("%s %s is the new course manager of %s.%n",
+                selectedTeacher.getFirstName(),
+                selectedTeacher.getLastName(),
+                selectedCourse.getCourseName());
     }
 
     /**
@@ -171,5 +448,18 @@ public class SchoolManagementSystemUI {
             } catch (NumberFormatException ignored) {}
             System.out.printf("Please enter a number %d - %d.%n", min, max);
         }
+    }
+    private static String readStringMenuChoice(Scanner sc) {
+        while (true) {
+            System.out.print("> ");
+            String userInput = sc.nextLine().trim();
+            if (!userInput.isEmpty())
+                return userInput;
+            System.out.println("Please enter a text.");
+        }
+    }
+    private static String askData(Scanner scanner, String text) {
+        System.out.println(text + " : ");
+        return readStringMenuChoice(scanner);
     }
 }

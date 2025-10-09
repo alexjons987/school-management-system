@@ -28,6 +28,10 @@ public class Student extends Person{
         this.attendingCoursesIDs.add(courseIdentifier);
     }
 
+    public void removeCourse(String courseIdentifier) {
+        this.attendingCoursesIDs.remove(courseIdentifier);
+    }
+
     public void addGrade(Grade grade) {
         this.grades.add(grade);
     }

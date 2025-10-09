@@ -34,7 +34,7 @@ public class SchoolManagementSystem {
         mainSMS();
     }
 
-    private void initializeSMS() throws IOException {
+    private void initializeSMS() {
         try {
             readFromDatabase();
         } catch (IOException e) {
@@ -55,10 +55,10 @@ public class SchoolManagementSystem {
                     SchoolManagementSystemUI.manageStudentsMenu(scanner, students, courses);
                     break;
                 case 2:
-                    SchoolManagementSystemUI.manageTeachersMenu(scanner);
+                    SchoolManagementSystemUI.manageTeachersMenu(scanner, teachers);
                     break;
                 case 3:
-                    SchoolManagementSystemUI.manageCoursesMenu(scanner);
+                    SchoolManagementSystemUI.manageCoursesMenu(scanner, students, teachers, courses);
                     break;
             }
         } while (menuChoice != 0);
