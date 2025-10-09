@@ -249,10 +249,10 @@ public class SchoolManagementSystemUI {
             case 0:
                 return;
             case 1:
-                // TODO: Implement Add course
+                createCourse(scanner, courses, teachers);
                 break;
             case 2:
-                // TODO: Implement Remove course
+                removeCourse(scanner, courses);
                 break;
             case 3:
                 addStudentToCourse(scanner, students, courses);
@@ -261,7 +261,7 @@ public class SchoolManagementSystemUI {
                 removeStudentFromCourse(scanner, students, courses);
                 break;
             case 5:
-                // TODO: Implement List all courses and their course manager
+                listCourses(courses);
                 break;
             case 6:
                 setCourseManager(scanner, teachers, courses);
@@ -445,7 +445,7 @@ public class SchoolManagementSystemUI {
                 selectedCourse.getCourseName());
     }
 
-    public static void addCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
+    public static void createCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
         System.out.println("- Add course -");
         System.out.println("Add name of the course ");
         System.out.print("> ");
