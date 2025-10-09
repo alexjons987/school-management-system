@@ -48,11 +48,14 @@ public class SchoolManagementSystem {
             );
 
             // Create some courses
-            courses = List.of(
-                    new Course("IX1303","Algebra and Geometry", "Math", teachers.get(0)),
-                    new Course("IS1200","Computer Hardware Engineering", "Engineering", teachers.get(1)),
-                    new Course("IV1351","Data Storage Paradigms", "Engineering", teachers.get(2))
-            );
+//            courses = List.of(
+//                    new Course("IX1303","Algebra and Geometry", "Math", teachers.get(0)),
+//                    new Course("IS1200","Computer Hardware Engineering", "Engineering", teachers.get(1)),
+//                    new Course("IV1351","Data Storage Paradigms", "Engineering", teachers.get(2))
+//            );
+            courses.add(new Course("IX1303","Algebra and Geometry", "Math", teachers.get(0)));
+            courses.add(new Course("IS1200", "Computer Hardware Engineering", "Engineering", teachers.get(1)));
+            courses.add(new Course("IV1351", "Data Storage Paradigms", "Engineering", teachers.get(2)));
 
             // Add a course manager to each course
             teachers.get(0).addCourse(courses.get(0).getCourseIdentifier());
@@ -88,7 +91,7 @@ public class SchoolManagementSystem {
                     SchoolManagementSystemUI.manageTeachersMenu(scanner);
                     break;
                 case 3:
-                    SchoolManagementSystemUI.manageCoursesMenu(scanner);
+                    SchoolManagementSystemUI.manageCoursesMenu(scanner, courses, teachers);
                     break;
             }
         } while (menuChoice != 0);

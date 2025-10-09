@@ -133,7 +133,7 @@ public class SchoolManagementSystemUI {
          */
     }
 
-    public static void manageCoursesMenu(Scanner scanner) { // TODO: Implement, add relevant params
+    public static void manageCoursesMenu(Scanner scanner, List<Course> courses, List<Teacher> teachers) { // TODO: Implement, add relevant params
         /**
          *     1. Add course
          *     2. Remove course
@@ -142,6 +142,119 @@ public class SchoolManagementSystemUI {
          *     5. Assign course to teacher -> warn if you are replacing current teacher
          *     6. See course details -> select course -> list course name, subject, course manager, students
          */
+        System.out.println("- Manage courses -");
+        System.out.println("1. Add course");
+        System.out.println("2. Remove course");
+        System.out.println("3. Add student to course");
+        System.out.println("4. List courses");
+        System.out.println("5. Assign course to teacher");
+        System.out.println("6. Course details");
+        System.out.println("0. Go back");
+
+        int menuChoice = readIntMenuChoice(scanner, 0, 6);
+
+        switch (menuChoice) {
+            case 0:
+                return;
+            case 1:
+                addCourse(scanner, courses, teachers);
+                break;
+            case 2:
+                removeCourse(scanner, courses);
+                break;
+            case 3:
+                // ToDo: Implement Add student to course
+                break;
+            case 4:
+                // TODO: Implement List courses
+                break;
+            case 5:
+                // TODO: Implement Assign teacher to course
+                break;
+            case 6:
+                // ToDo: Implement course details
+                break;
+        }
+    }
+
+    public static void addCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
+        // TODO: Implement courseIdentifier
+        System.out.println("- Add course -");
+        System.out.println("Add name of the course ");
+        System.out.print("> ");
+        String name = sc.nextLine().trim();
+        System.out.println("Add subject");
+        System.out.print("> ");
+        String subject = sc.nextLine().trim();
+        System.out.println("Add course ID");
+        System.out.print("> ");
+        String courseID = sc.nextLine().trim();
+
+        // List available teachers to select
+        System.out.printf("Select teacher (1 - %d)%n", teachers.size());
+        for(int i = 0; i < teachers.size(); i++) {
+            System.out.printf("%d. %s %s%n", i + 1, teachers.get(i).getFirstName(), teachers.get(i).getLastName());
+        }
+        int selected = readIntMenuChoice(sc, 1, teachers.size());
+        Teacher teacher = teachers.get(selected - 1);
+
+        // Create new course and add it to courses list
+        Course courseToAdd = new Course(courseID, name, subject, teacher);
+        courses.add(courseToAdd);
+        System.out.println(courses.size());
+
+        System.out.println("A new course has been added:");
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Subject: %s%n", subject);
+        System.out.printf("ID: %s%n", courseID);
+        System.out.printf("Course Manager: %s %s%n", teacher.getFirstName(), teacher.getLastName());
+        System.out.println();
+    }
+
+    public static void removeCourse(Scanner sc, List<Course> courses) {
+        if(courses.isEmpty()) {
+            System.out.println("The courses catalog is empty");
+            System.out.println();
+            return;
+        }
+
+        System.out.println("- Remove course -");
+
+        // List available courses to select
+        System.out.printf("Select course to remove (1 - %d)%n", courses.size());
+        for(int i = 0; i < courses.size(); i++) {
+            Course current = courses.get(i);
+            System.out.printf(
+                    "%d. %s | %s | %s | %s %s%n",
+                    i + 1,
+                    current.getCourseIdentifier(),
+                    current.getCourseName(),
+                    current.getSubject(),
+                    current.getCourseManager().getFirstName(),
+                    current.getCourseManager().getLastName());
+        }
+
+        int selectedInput = readIntMenuChoice(sc, 1, courses.size());
+        int indexToRemove = selectedInput - 1;
+
+        Course course = courses.get(indexToRemove);
+        String message = String.format(
+                "This course has been removed:%n" +
+                        "Name: %s%n" +
+                        "Subject: %s%n" +
+                        "ID: %s%n" +
+                        "Course Manager: %s %s%n",
+                course.getCourseName(),
+                course.getSubject(),
+                course.getCourseIdentifier(),
+                course.getCourseManager().getFirstName(),
+                course.getCourseManager().getLastName()
+        );
+
+        courses.remove(indexToRemove);
+        System.out.println();
+        System.out.println(message);
+        System.out.println();
     }
 
     /**
