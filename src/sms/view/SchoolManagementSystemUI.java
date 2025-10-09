@@ -133,7 +133,7 @@ public class SchoolManagementSystemUI {
          */
     }
 
-    public static void manageCoursesMenu(Scanner scanner, List<Course> courses, List<Teacher> teachers) { // TODO: Implement, add relevant params
+    public static void manageCoursesMenu(Scanner scanner, List<Student> students,  List<Teacher> teachers, List<Course> courses) {
         /**
          *     1. Add course
          *     2. Remove course
@@ -142,39 +142,6 @@ public class SchoolManagementSystemUI {
          *     5. Assign course to teacher -> warn if you are replacing current teacher
          *     6. See course details -> select course -> list course name, subject, course manager, students
          */
-        System.out.println("- Manage courses -");
-        System.out.println("1. Add course");
-        System.out.println("2. Remove course");
-        System.out.println("3. Add student to course");
-        System.out.println("4. List courses");
-        System.out.println("5. Assign course to teacher");
-        System.out.println("6. Course details");
-        System.out.println("0. Go back");
-
-        int menuChoice = readIntMenuChoice(scanner, 0, 6);
-
-        switch (menuChoice) {
-            case 0:
-                return;
-            case 1:
-                addCourse(scanner, courses, teachers);
-                break;
-            case 2:
-                removeCourse(scanner, courses);
-                break;
-            case 3:
-                // ToDo: Implement Add student to course
-                break;
-            case 4:
-                listCourses(courses);
-                break;
-            case 5:
-                // TODO: Implement Assign teacher to course
-                break;
-            case 6:
-                // ToDo: Implement course details
-                break;
-        }
     }
 
     public static void addCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
