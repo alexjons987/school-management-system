@@ -179,6 +179,7 @@ public class SchoolManagementSystemUI {
     }
 
     public static void addCourse(Scanner sc, List<Course> courses, List<Teacher> teachers) {
+        // TODO: Implement courseIdentifier
         System.out.println("- Add course -");
         System.out.println("Add name of the course ");
         System.out.print("> ");
@@ -207,13 +208,12 @@ public class SchoolManagementSystemUI {
     }
 
     public static void removeCourse(Scanner sc, List<Course> courses) {
-        // List of courses
         // Select course to remove from courses
         // Add a isRemoved field to course? Remove course from attending students?
         System.out.println("- Remove course -");
 
         // List available courses to select
-        System.out.printf("Select course (1 - %d)%n", courses.size());
+        System.out.printf("Select course to remove (1 - %d)%n", courses.size());
         for(int i = 0; i < courses.size(); i++) {
             Course current = courses.get(i);
             System.out.printf("%d. %s | %s | %s %s%n", i + 1, current.getCourseName(), current.getSubject(), current.getCourseManager().getFirstName(), current.getCourseManager().getLastName());
