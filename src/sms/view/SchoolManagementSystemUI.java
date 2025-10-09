@@ -1,17 +1,15 @@
 package sms.view;
 
-import sms.model.Course;
-import sms.model.Grade;
-import sms.model.Student;
-import sms.model.Teacher;
+import sms.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class SchoolManagementSystemUI {
 
     public static void printTitle() {
-        System.out.println("- School Management System -");
+        System.out.printf("%n- School Management System -%n");
     }
 
     public static int startMenu(Scanner scanner) {
@@ -46,20 +44,87 @@ public class SchoolManagementSystemUI {
             case 0:
                 return;
             case 1:
-                // TODO: Implement Add student
+                addPerson(scanner, students, "Student");
                 break;
             case 2:
-                // TODO: Implement Remove student
+                removePerson(scanner, students, "Student");
                 break;
             case 3:
                 //gradeStudent(scanner, students); // TODO: Refactor gradeStudent method (courseIdentifier is added, courses list is removed )
                 break;
             case 4:
-                // TODO: Implement List students
+                System.out.println("- List students -");
+                listPersons(students);
                 break;
             case 5:
                 // TODO: Implement List grades of student
                 break;
+        }
+    }
+    private static <T extends Person> void addPerson(Scanner scanner, List<T> persons, String type) {
+   // private static void addPerson(Scanner scanner, List<Person> persons, String type) {
+        System.out.printf("- Add %s -%n",type);
+        String firstName = askData(scanner, "First name");
+        String lastName = askData(scanner, "Last name");
+        System.out.println("Birth year: ");
+        int birthYear = readIntMenuChoice(scanner,1875,2020);
+        String email = askData(scanner, "Email address");
+        String phone = askData(scanner, "Phone number");
+
+        boolean alreadyRegistered = persons.stream().anyMatch(person ->
+                person.getFirstName().equals(firstName)
+                && person.getLastName().equals(lastName)
+                && person.getBirthYear() == (birthYear)
+                && person.getEmail().equals(email)
+                && person.getPhoneNumber().equals(phone));
+        if(alreadyRegistered) {
+            System.out.printf("%s already registered%n", type);
+        } else {
+            Person newPerson;
+            if (type.equals("Student")) {
+                persons.add((T) new Student(firstName, lastName, birthYear, email, phone));
+            } else {
+                persons.add((T) new Teacher(firstName, lastName, birthYear, email, phone));
+            }
+            System.out.printf("%s %s %s is added into the school management system!%n", type, firstName, lastName);
+        }
+    }
+    private static <T extends Person> void removePerson(Scanner scanner, List<T> persons, String type) {
+   // private static void removePerson(Scanner scanner, List<Person> persons, String type) {
+        System.out.printf("- Remove %s -%n", type);
+
+        if (persons.isEmpty()) {
+            System.out.println("No persons available to remove");
+            return;
+        }
+        // Select person
+        for (int i = 0; i < persons.size(); i++) {
+            System.out.printf("%d. %s %s%n", i + 1, persons.get(i).getFirstName(), persons.get(i).getLastName());
+        }
+        System.out.println("Select person to remove (0 = cancel)");
+        int studentChoice = readIntMenuChoice(scanner, 0, persons.size());
+
+        if (studentChoice == 0) {
+            System.out.println("Operation cancelled..");
+            return;
+        }
+        Person personRemoved = persons.get(studentChoice -1);
+        persons.remove(studentChoice -1);
+        System.out.printf("%s %s %s has been removed from the school management system!",type, personRemoved.getFirstName(), personRemoved.getLastName());
+    }
+
+    private static <T extends Person> void listPersons(List<T> persons) {
+   // private static void listpersons(Scanner scanner, List<Person> persons) {
+        // Select student
+        for (int i = 0; i < persons.size(); i++) {
+            Person person = persons.get(i); // get once
+            System.out.printf("%d. Name: %s %s birth year: %d email: %s phone: %s %n",
+                    i + 1,
+                    person.getFirstName(),
+                    person.getLastName(),
+                    person.getBirthYear(),
+                    person.getEmail(),
+                    person.getPhoneNumber());
         }
     }
 
@@ -124,13 +189,39 @@ public class SchoolManagementSystemUI {
 //        }
     }
 
-    public static void manageTeachersMenu(Scanner scanner) { // TODO: Implement, add relevant params
+    public static void manageTeachersMenu(Scanner scanner, List<Teacher> teachers) { // TODO: Implement, add relevant params
         /**
          *     1. Add Teacher
          *     2. Remove Teacher
          *     3. List Teachers
          *     4. List courses of teacher -> select teacher
          */
+        System.out.println("- Manage Teachers -");
+        System.out.println("1. Add teacher");
+        System.out.println("2. Remove teacher");
+        System.out.println("3. List teachers");
+        System.out.println("4. List courses of teacher");
+        System.out.println("0. Go back");
+
+        int menuChoice = readIntMenuChoice(scanner, 0, 5);
+
+        switch (menuChoice) {
+            case 0:
+                return;
+            case 1:
+                addPerson(scanner, teachers, "Teacher");
+                break;
+            case 2:
+                removePerson(scanner, teachers, "Teacher");
+                break;
+            case 3:
+                System.out.println("- List teachers -");
+                listPersons(teachers);
+                break;
+            case 4:
+                // TODO: Implement List of courses for teacher
+                break;
+        }
     }
 
     public static void manageCoursesMenu(Scanner scanner) { // TODO: Implement, add relevant params
@@ -162,5 +253,18 @@ public class SchoolManagementSystemUI {
             } catch (NumberFormatException ignored) {}
             System.out.printf("Please enter a number %d - %d.%n", min, max);
         }
+    }
+    private static String readStringMenuChoice(Scanner sc) {
+        while (true) {
+            System.out.print("> ");
+            String userInput = sc.nextLine().trim();
+            if (!userInput.isEmpty())
+                return userInput;
+            System.out.println("Please enter a text.");
+        }
+    }
+    private static String askData(Scanner scanner, String text) {
+        System.out.println(text + " : ");
+        return readStringMenuChoice(scanner);
     }
 }
