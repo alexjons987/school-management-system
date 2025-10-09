@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
+    private final String courseIdentifier;
     private String courseName;
     private String subject;
     private Teacher courseManager;
-    private List<Student> students;
 
-    public Course(String name, String subject, Teacher courseManager) {
+    public Course(String courseIdentifier, String name, String subject, Teacher courseManager) {
+        this.courseIdentifier = courseIdentifier;
         this.courseName = name;
         this.subject = subject;
         this.courseManager = courseManager;
-        this.students = new ArrayList<Student>();
     }
+
+    public String getCourseIdentifier() { return courseIdentifier; }
 
     public String getCourseName() {
         return courseName;
@@ -45,27 +47,19 @@ public class Course {
         this.courseManager.addCourse(this);
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
     public boolean addStudentToCourse(Student student) {
-        if(!students.contains(student)) {
-            students.add(student);
-            student.addCourse(this);
-            return true;
-        } else {
-            return false;
+        if (student.getCourses().contains(courseIdentifier)) {
+           return false;
         }
+        student.addCourse(courseIdentifier);
+        return true;
     }
 
     public boolean removeStudentFromCourse(Student student) {
-        if(students.contains(student)) {
-            students.remove(student);
-            student.removeCourse(this);
-            return true;
-        } else {
+        if(!student.getCourses().contains(courseIdentifier)) {
             return false;
         }
+        // student.removeCourse(courseIdentifier); // TODO: Implement removeCourse
+        return true;
     }
 }

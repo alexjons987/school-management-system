@@ -5,25 +5,25 @@ import java.util.List;
 
 public class Student extends Person{
 
-    private List<Course> courses;
+    private List<String> attendingCoursesIDs;
     private List<Grade> grades;
 
     public Student(String firstName, String lastName, int birthYear, String email, String phoneNumber) {
         super(firstName, lastName, birthYear, email, phoneNumber);
-        this.courses = new ArrayList<>();
+        this.attendingCoursesIDs = new ArrayList<>();
         this.grades = new ArrayList<>();
     }
 
-    public void addCourse(Course course) {
-        this.courses.add(course);
+    public void addCourse(String courseIdentifier) {
+        this.attendingCoursesIDs.add(courseIdentifier);
     }
 
     public void removeCourse(Course course) {
         this.courses.remove(course);
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<String> getCourses() {
+        return attendingCoursesIDs;
     }
 
     public void addGrade(Grade grade) {

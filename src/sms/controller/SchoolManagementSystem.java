@@ -49,15 +49,15 @@ public class SchoolManagementSystem {
 
             // Create some courses
             courses = List.of(
-                    new Course("Algebra and Geometry (IX1303)", "Math", teachers.get(0)),
-                    new Course("Computer Hardware Engineering (IS1200)", "Engineering", teachers.get(1)),
-                    new Course("Data Storage Paradigms (IV1351)", "Engineering", teachers.get(2))
+                    new Course("IX1303","Algebra and Geometry", "Math", teachers.get(0)),
+                    new Course("IS1200","Computer Hardware Engineering", "Engineering", teachers.get(1)),
+                    new Course("IV1351","Data Storage Paradigms", "Engineering", teachers.get(2))
             );
 
             // Add a course manager to each course
-            teachers.get(0).addCourse(courses.get(0));
-            teachers.get(1).addCourse(courses.get(1));
-            teachers.get(2).addCourse(courses.get(2));
+            teachers.get(0).addCourse(courses.get(0).getCourseIdentifier());
+            teachers.get(1).addCourse(courses.get(1).getCourseIdentifier());
+            teachers.get(2).addCourse(courses.get(2).getCourseIdentifier());
 
             // Add students to courses
             for (Course course : courses) {
