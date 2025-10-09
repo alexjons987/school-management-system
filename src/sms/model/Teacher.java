@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends Person {
-    private List<Course> courses;
+    private List<String> managedCoursesIDs;
 
     public Teacher(String firstName, String lastName, int birthYear, String email, String phoneNumber) {
         super(firstName, lastName, birthYear, email, phoneNumber);
-        this.courses = new ArrayList<>();
+        this.managedCoursesIDs = new ArrayList<>();
     }
 
-    public void addCourse(Course course) {
-        this.courses.add(course);
+    public void addCourse(String courseIdentifier) {
+        this.managedCoursesIDs.add(courseIdentifier);
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<String> getCourses() {
+        return managedCoursesIDs;
     }
 }
