@@ -6,6 +6,8 @@ import java.util.List;
 public class Teacher extends Person {
     private List<String> managedCoursesIDs;
 
+    public Teacher() {}
+
     public Teacher(String firstName, String lastName, int birthYear, String email, String phoneNumber) {
         super(firstName, lastName, birthYear, email, phoneNumber);
         this.managedCoursesIDs = new ArrayList<>();
@@ -15,7 +17,7 @@ public class Teacher extends Person {
         this.managedCoursesIDs.add(courseIdentifier);
     }
 
-    public List<String> getCourses() {
+    public List<String> getManagedCoursesIDs() {
         return managedCoursesIDs;
     }
 }

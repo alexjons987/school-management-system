@@ -1,10 +1,12 @@
 package sms.model;
 
 public class Course {
-    private final String courseIdentifier;
+    private String courseIdentifier;
     private String courseName;
     private String subject;
     private Teacher courseManager;
+
+    public Course() {}
 
     public Course(String courseIdentifier, String name, String subject, Teacher courseManager) {
         this.courseIdentifier = courseIdentifier;
@@ -40,7 +42,7 @@ public class Course {
     }
 
     public boolean addStudentToCourse(Student student) {
-        if (student.getCoursesIDs().contains(courseIdentifier)) {
+        if (student.getAttendingCoursesIDs().contains(courseIdentifier)) {
            return false;
         }
         student.addCourse(courseIdentifier);
@@ -48,7 +50,7 @@ public class Course {
     }
 
     public boolean removeStudentFromCourse(Student student) {
-        if(!student.getCoursesIDs().contains(courseIdentifier)) {
+        if(!student.getAttendingCoursesIDs().contains(courseIdentifier)) {
             return false;
         }
         // student.removeCourse(courseIdentifier); // TODO: Implement removeCourse
