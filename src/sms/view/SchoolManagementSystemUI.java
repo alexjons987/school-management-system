@@ -453,7 +453,7 @@ public class SchoolManagementSystemUI {
         // Create new course and add it to courses list
         Course courseToAdd = new Course(courseID, name, subject, teacher);
         courses.add(courseToAdd);
-        System.out.println(courses.size());
+        teacher.addCourse(courseID);
 
         System.out.println("A new course has been added:");
         System.out.printf("Name: %s%n", name);
