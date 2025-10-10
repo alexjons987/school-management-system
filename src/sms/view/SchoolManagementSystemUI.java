@@ -237,7 +237,7 @@ public class SchoolManagementSystemUI {
                 createCourse(scanner, courses, teachers);
                 break;
             case 2:
-                removeCourse(scanner, courses);
+                removeCourse(scanner, courses, students);
                 break;
             case 3:
                 addStudentToCourse(scanner, students, courses);
@@ -463,7 +463,7 @@ public class SchoolManagementSystemUI {
         System.out.println();
     }
 
-    public static void removeCourse(Scanner sc, List<Course> courses) {
+    public static void removeCourse(Scanner sc, List<Course> courses, List<Student> students ) {
         if(courses.isEmpty()) {
             System.out.println("The courses catalog is empty");
             System.out.println();
@@ -490,6 +490,9 @@ public class SchoolManagementSystemUI {
         int indexToRemove = selectedInput - 1;
 
         Course course = courses.get(indexToRemove);
+        String id = course.getCourseIdentifier();
+        Teacher teacher = course.getCourseManager();
+
         String message = String.format(
                 "This course has been removed:%n" +
                         "Name: %s%n" +
@@ -498,12 +501,19 @@ public class SchoolManagementSystemUI {
                         "Course Manager: %s %s%n",
                 course.getCourseName(),
                 course.getSubject(),
-                course.getCourseIdentifier(),
-                course.getCourseManager().getFirstName(),
-                course.getCourseManager().getLastName()
+                id,
+                teacher.getFirstName(),
+                teacher.getLastName()
         );
 
+        students.forEach(student -> {
+            if(student.getAttendingCoursesIDs().contains(id)) {
+                course.removeStudentFromCourse(student);
+            }
+        });
+        teacher.removeCourse(id);
         courses.remove(indexToRemove);
+
         System.out.println();
         System.out.println(message);
         System.out.println();
