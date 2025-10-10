@@ -81,7 +81,6 @@ public class SchoolManagementSystemUI {
         }
     }
     private static <T extends Person> void removePerson(Scanner scanner, List<T> persons, String type) {
-   // private static void removePerson(Scanner scanner, List<Person> persons, String type) {
         System.out.printf("- Remove %s -%n", type);
 
         if (persons.isEmpty()) {
@@ -105,7 +104,6 @@ public class SchoolManagementSystemUI {
     }
 
     private static <T extends Person> void listPersons(List<T> persons) {
-   // private static void listpersons(Scanner scanner, List<Person> persons) {
         // Select student
         for (int i = 0; i < persons.size(); i++) {
             Person person = persons.get(i); // get once
@@ -123,18 +121,25 @@ public class SchoolManagementSystemUI {
         System.out.println("- Grade student -");
 
         // Select student
-        for (int i = 0; i < students.size(); i++) {
-            System.out.printf("%d. %s %s%n", i + 1, students.get(i).getFirstName(), students.get(i).getLastName());
+        List<Student> eligibleStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (!student.getAttendingCoursesIDs().isEmpty()) {
+                eligibleStudents.add(student);
+            }
+        }
+
+        for (int i = 0; i < eligibleStudents.size(); i++) {
+            System.out.printf("%d. %s %s%n", i + 1, eligibleStudents.get(i).getFirstName(), eligibleStudents.get(i).getLastName());
         }
         System.out.println("Select student to grade (0 = cancel)");
-        int studentChoice = readIntMenuChoice(scanner, 0, students.size());
+        int studentChoice = readIntMenuChoice(scanner, 0, eligibleStudents.size());
 
         if (studentChoice == 0) {
             System.out.println("Grading cancelled..");
             return;
         }
 
-        Student selectedStudent = students.get(studentChoice - 1);
+        Student selectedStudent = eligibleStudents.get(studentChoice - 1);
 
         // Select course
         List<String> selectedStudentCourseIDs = selectedStudent.getAttendingCoursesIDs();
@@ -157,7 +162,6 @@ public class SchoolManagementSystemUI {
         }
 
         String selectedCourseID = selectedStudentCourseIDs.get(courseChoice - 1);
-        System.out.println("Selected ID: " + selectedCourseID);
 
         Course selectedCourse = courses.stream()
                 .filter(course -> course.getCourseIdentifier().equals(selectedCourseID))
@@ -181,12 +185,6 @@ public class SchoolManagementSystemUI {
         // Add grade to student
         Grade grade = new Grade(selectedCourse.getCourseIdentifier(), courseGrade, teacherComment);
         selectedStudent.addGrade(grade);
-
-        // TODO: Remove this block - only used for testing
-        System.out.println("\n\n");
-        for (Grade g : selectedStudent.getGrades()) {
-            System.out.println(g.toString());
-        }
     }
 
     public static void manageTeachersMenu(Scanner scanner, List<Teacher> teachers) { // TODO: Implement, add relevant params
