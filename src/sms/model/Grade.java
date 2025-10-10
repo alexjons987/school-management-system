@@ -1,21 +1,16 @@
 package sms.model;
 
-public class Grade
-{
-    private Student student;
+public class Grade {
     private String courseIdentifier;
     private int value;
     private String comments;
 
-    public Grade(Student student, String courseIdentifier, int value, String comments) {
-        this.student = student;
+    public Grade() {}
+
+    public Grade(String courseIdentifier, int value, String comments) {
         this.courseIdentifier = courseIdentifier;
         this.value = value;
         this.comments = comments;
-    }
-
-    public Student getStudent() {
-        return student;
     }
 
     public String getCourseIdentifier() {
@@ -32,9 +27,7 @@ public class Grade
 
     public String toString() {
         return String.format(
-                "%s %s - %s: %d | %s",
-                this.student.getFirstName(),
-                this.student.getLastName(),
+                "%s: %d | Comment: %s",
                 this.courseIdentifier,
                 this.value,
                 this.comments

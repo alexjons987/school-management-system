@@ -8,10 +8,20 @@ public class Student extends Person{
     private List<String> attendingCoursesIDs;
     private List<Grade> grades;
 
+    public Student() {}
+
     public Student(String firstName, String lastName, int birthYear, String email, String phoneNumber) {
         super(firstName, lastName, birthYear, email, phoneNumber);
         this.attendingCoursesIDs = new ArrayList<>();
         this.grades = new ArrayList<>();
+    }
+
+    public List<String> getAttendingCoursesIDs() {
+        return attendingCoursesIDs;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
     }
 
     public void addCourse(String courseIdentifier) {
@@ -22,15 +32,7 @@ public class Student extends Person{
         this.attendingCoursesIDs.remove(courseIdentifier);
     }
 
-    public List<String> getCourses() {
-        return attendingCoursesIDs;
-    }
-
     public void addGrade(Grade grade) {
         this.grades.add(grade);
-    }
-
-    public List<Grade> getGrades() {
-        return grades;
     }
 }

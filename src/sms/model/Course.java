@@ -1,13 +1,12 @@
 package sms.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Course {
-    private final String courseIdentifier;
+    private String courseIdentifier;
     private String courseName;
     private String subject;
     private Teacher courseManager;
+
+    public Course() {}
 
     public Course(String courseIdentifier, String name, String subject, Teacher courseManager) {
         this.courseIdentifier = courseIdentifier;
@@ -48,7 +47,7 @@ public class Course {
     }
 
     public boolean addStudentToCourse(Student student) {
-        if (student.getCourses().contains(courseIdentifier)) {
+        if (student.getAttendingCoursesIDs().contains(courseIdentifier)) {
            return false;
         }
         student.addCourse(courseIdentifier);
@@ -56,7 +55,7 @@ public class Course {
     }
 
     public boolean removeStudentFromCourse(Student student) {
-        if(!student.getCourses().contains(courseIdentifier)) {
+        if(!student.getAttendingCoursesIDs().contains(courseIdentifier)) {
             return false;
         }
         student.removeCourse(courseIdentifier);
