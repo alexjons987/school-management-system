@@ -27,23 +27,23 @@ The goal is to plan, build and present a functioning system over the course of a
 ## The task
 You will plan and develop a **School Management System** together that can at least:
 ### Basic requirements
-1. [ ] **1)** Manage students, teachers and courses
-2. [ ] **2)** Link students to courses
+1. [x] **1)** Manage students, teachers and courses
+2. [x] **2)** Link students to courses
 3. [x] **3)** Add and display grades
-4. [ ] **4)** Display lists (e.g. students in a course with their grades)
+4. [x] **4)** Display lists (e.g. students in a course with their grades)
 5. [x] **5)** Save and load data (e.g. from text file or `JSON`)
 ### OOP requirements
 The project should show that you can use:
-* **Inheritance** (e.g. `Person` → `Student` and `Teacher`)
-* **Encapsulation** (private variables with getters/setters)
-* **Polymorphism** (e.g. different types of users or grades)
-* **Interface or abstract class** where appropriate
+* [x] **Inheritance** (e.g. `Person` → `Student` and `Teacher`)
+* [x] **Encapsulation** (private variables with getters/setters)
+* [x] **Polymorphism** (e.g. different types of users or grades)
+* [x] **Interface or abstract class** where appropriate
 ### Extra for higher level
 If you complete the basic requirements, you can add, for example:
-* Login (teacher/student/administrator)
-* Statistics (e.g. average grade)
-* Schedule generator
-* Import/export of data
+* [ ] Login (teacher/student/administrator)
+* [ ] Statistics (e.g. average grade)
+* [ ] Schedule generator
+* [ ] Import/export of data
 
 ---
 
