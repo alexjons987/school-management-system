@@ -69,7 +69,6 @@ public class SchoolManagementSystem {
 
     private void readFromDatabase() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
-                //.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
